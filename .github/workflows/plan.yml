@@ -57,7 +57,7 @@ jobs:
         
       - name: Deploy EC2 instance
         run: terraform apply -auto-approve tfplan
-        with:
+        env:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
