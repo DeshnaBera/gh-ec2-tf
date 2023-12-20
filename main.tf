@@ -2,13 +2,9 @@ provider "aws" {
   region = "us-east-1"
 }
 
-terraform {
-  backend "s3" {
-    bucket = "mytf-state-file"
-    key    = "path/to/terraform.tfstate"
-    region = "us-east-1"
-    dynamodb_table = "TfStateLock"
-  }
+variable "environment" {
+ description = "The environment for the infrastructure"
+ type        = string
 }
 
 resource "aws_instance" "ec2" {
@@ -16,6 +12,7 @@ resource "aws_instance" "ec2" {
   instance_type = "t2.micro"
 
   tags = {
-    Name = "test-instance"
-  }
+   Name = "example-instance-${var.environment}"
+   Environment = var.environment
+ }
 }
